@@ -29,7 +29,7 @@ const mediumQuestions = [
     {Question: `What was Al's nickname as a young naval cadet?`, Answer: `Bingo`},
     {Question: `What was the name of Captain Galaxy's sidekick?`, Answer: `Future Boy`},
     {Question: `What year does Al leap into in the episode "The Leap Back"?`, Answer: `1945`},
-    {Question: `In what Illinois city does Sam rescue rock 'n roll music's right to be played on the radio in 1959?`, Answer: 'Peoria'},
+    {Question: `In what Illinois city does Sam rescue rock 'n roll music in 1959?`, Answer: 'Peoria'},
     {Question: `In what year does the episode "M.I.A." take place?`, Answer: '1969'},
 ]
 
@@ -43,70 +43,114 @@ const hardQuestions = [
     {Question: `What third season episode was almost the final episode aired before a letter-writing campaign saved the series?`, Answer: `Runaway`}
 ]
 
+$(() => {
+    
+    $('form').on('submit', (event) => {
+    let $answer = $('#answer').val();
+    if ($answer === easyQuestions[$random].Answer) {
+        console.log($answer);
+        alert("Correct!");
+        easyQuestions.splice($random, 1);
+        randEasyQGenerator();
+    } else {
+        console.log($answer);
+        alert("Incorrect!");
+}
+
+const checkAnswer = () => {
+    if ($answer === easyQuestions[$random].Answer) {
+        console.log($answer);
+        alert("Correct!");
+        easyQuestions.splice($random, 1);
+        randEasyQGenerator();
+    } else {
+        console.log($answer);
+        alert("Incorrect!");
+    // Eliminate the question from the array so it is not asked again while player is in this stage of the game.
+    }   easyQuestions.splice($random, 1);
+        randEasyQGenerator();
+}
 
 const randEasyQGenerator = () => {
-   while (easyQuestions.length > 0) {
-       const random = Math.floor(Math.random() * easyQuestions.length);
-        let randQuestion = (easyQuestions[random].Question);
-        $('#display-question').append(randQuestion);
-    //     if (randQuestion === easyQuestions[random].Answer) {
-    //         alert("Correct!");
-    //         easyQuestions.splice(random, 1);
-    //         randEasyQGenerator();
-    //     } else {
-    //         alert("Incorrect!");
-    //     }   easyQuestions.splice(random, 1);
-    //         randEasyQGenerator();
-    // } 
-}
-
-// console.log(randEasyQGenerator());
-
-const randMediumQGenerator = () => {
-    while (mediumQuestions.length > 0 && timer > 0) {
-    const random = Math.floor(Math.random() * mediumQuestions.length);
-    let randQuestion = prompt(mediumQuestions[random].Question);
-        if (randQuestion === mediumQuestions[random].Answer) {
-            alert("Correct!");
-            mediumQuestions.splice(random, 1);
-            randMediumQGenerator();
-        } else {
-            alert("Incorrect!");
-        }   mediumQuestions.splice(random, 1);
-            randMediumQGenerator();
+    // while loop will run through easy questions until they have all been answered,or score/timer drops to 0. Code for timer/score to be inserted.
+//    while (easyQuestions.length > 0) {
+       // random variable will generate number to determine randomly selected question
+       const $random = Math.floor(Math.random() * easyQuestions.length);
+        let $randQuestion = (easyQuestions[$random].Question);
+        let $randQuestionDisplay = $('<p>').text($randQuestion);
+        console.log($randQuestionDisplay);
+        // Question is appended to the div for player to answer
+        $('#display-question').append($randQuestionDisplay);
+        $('form').on('submit', (event) => {
+            let $answer = $('#answer').val();
+            if ($answer === easyQuestions[$random].Answer) {
+                console.log($answer);
+                alert("Correct!");
+                easyQuestions.splice($random, 1);
+                randEasyQGenerator();
+            } else {
+                console.log($answer);
+                alert("Incorrect!");
+        }
     }
-}
+    
 
-// console.log(randMediumQGenerator());
 
-const randHardQGenerator = () => {
-    while (hardQuestions.length > 0 && timer > 0) {
-    const random = Math.floor(Math.random() * hardQuestions.length);
-    let hardQuestion = prompt(hardQuestions[random].Question);
-        if (hardQuestion === (hardQuestions[random].Answer)) {
-            alert("Correct!");
-            hardQuestions.splice(random, 1);
-            randHardQGenerator();
-        } else {
-            alert("Incorrect!");
-        }   hardQuestions.splice(random, 1);
-            randHardQGenerator();
+
+
+        // checks for correct or incorrect answer. Code to be add/subject points or score to be added
+        // $("#button").on('click', checkAnswer);
+        // $checkAnswer;
+        // console.log($answer);
+        // if ($answer === easyQuestions[$random].Answer) {
+        //     alert("Correct!");
+        //     easyQuestions.splice($random, 1);
+        //     randEasyQGenerator();
+        // } else {
+        //     alert("Incorrect!");
+        // // Eliminate the question from the array so it is not asked again while player is in this stage of the game.
+        // }   easyQuestions.splice($random, 1);
+        //     randEasyQGenerator();
+    
+
+
+// // console.log(randEasyQGenerator());
+
+// const randMediumQGenerator = () => {
+//     while (mediumQuestions.length > 0 && timer > 0) {
+//     const random = Math.floor(Math.random() * mediumQuestions.length);
+//     let randQuestion = prompt(mediumQuestions[random].Question);
+//         if (randQuestion === mediumQuestions[random].Answer) {
+//             alert("Correct!");
+//             mediumQuestions.splice(random, 1);
+//             randMediumQGenerator();
+//         } else {
+//             alert("Incorrect!");
+//         }   mediumQuestions.splice(random, 1);
+//             randMediumQGenerator();
+//     }
+
+
+// // console.log(randMediumQGenerator());
+
+// const randHardQGenerator = () => {
+//     while (hardQuestions.length > 0 && timer > 0) {
+//     const random = Math.floor(Math.random() * hardQuestions.length);
+//     let hardQuestion = prompt(hardQuestions[random].Question);
+//         if (hardQuestion === (hardQuestions[random].Answer)) {
+//             alert("Correct!");
+//             hardQuestions.splice(random, 1);
+//             randHardQGenerator();
+//         } else {
+//             alert("Incorrect!");
+//         }   hardQuestions.splice(random, 1);
+//             randHardQGenerator();
+//     }
+// }
+        }
     }
+});
 
-}
+$('#play-game').on('click', randEasyQGenerator);
+$("#button").on('click', checkAnswer);
 
-
-
-// randEasyQGenerator();
-// randMediumQGenerator();
-// randHardQGenerator();
-
-$(() => {
-    $('#play-game').on('click', randEasyQGenerator());
-   
-
-let $answer = $('#answer').val();
-console.log($answer);
-$('#answer').val('');
-})
-}

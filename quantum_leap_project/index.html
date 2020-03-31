@@ -9,26 +9,47 @@
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
     <script src="app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" type= "text/css" href="style.css">
     <title>Quantum Leap Quiz</title>
 </head>
 <header><img src="images/background-1.jpg">
+    Quantum Leap Quiz
 </header>
 <body>
+    <section class="rules">
+        <p>
+                Test your knowledge of the sci-fi cult classic TV show, Quantum Leap. 
+                <p>
+                The clock starts when you hit Activate the Accelerator. You will have 30 seconds to answer the first question. 
+                <p>
+                Thirty seconds will be added to the clock for every correct answer.
+                <p>
+                Fifteen seconds will be deducted for every incorrect answer. 
+                <p>
+                As you progress through the game, the questions get tougher!
+                <p>
+                Answer 25 correct questions, and you win the game.
+                <p>
+                If the timer hit zero, you have lost. But keep coming back to play! This quiz has over 100 randomly generated questions.    
+                
+        </p>
+    </section>
     <div id="display-question">
 
     </div>
-    <button id="play-game">Play game</button>
+    <button id="play-game">Activate the Accelerator</button>
     <form>
         <input type="text" id="answer" placeholder="answer"/>
         <input type="submit" id="button" value="Enter"/>
     </form>
     
-    <!-- <div id="timer">
+    <div id="timer">
             <span id="timer">
                     <span id="time">10</span>     
                   </span>
-    </div> -->
+    </div>
     
 </body>
 </html>
