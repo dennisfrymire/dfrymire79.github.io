@@ -357,7 +357,7 @@ body {
     z-index: 5;
 }
 
-#play-again, #proceed {
+#play-again, #proceed, #proceed-kisses, #proceed-episode, #proceed-project, #proceed-novels {
     box-shadow:inset 0px 1px 0px 0px #9fb4f2;
 	background:linear-gradient(to bottom, #6686bd 5%, #476e9e 100%);
 	background-color:#6686bd;

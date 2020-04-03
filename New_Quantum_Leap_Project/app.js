@@ -8,7 +8,15 @@ $(() => {
     let $random;
     let $randQuestionDisplay;
     let $wrongAnswers = 0;
-    let $correctAnswers = 0;
+    let $correctAnswersEasy = 0;
+    let $correctAnswersKisses = 0;
+    let $correctAnswersEpisode = 0;
+    let $correctAnswersProject = 0;
+    let $correctAnswersNovels = 0;
+    let $correctAnswers = [$correctAnswersEasy + $correctAnswersKisses + $correctAnswersEpisode + $correctAnswersProject + $correctAnswersNovels];
+    let $sumOfAnswers = $correctAnswers.reduce(function(a, b) {
+        return a + b;
+    }, 0);
     
   
 
@@ -126,10 +134,6 @@ const removeRules = () => {
     $('.sub-head').remove();
     $('#timer').css('display', 'block');
 };
-
-// addTimer = () => {
-//     $('#time').css('display', 'inline');
-// }
 
 // Removes 'Activate Accelerator Button' at the start of 'Round 1 - Easy Questions'
 const removeAcceleratorButton = () => {
@@ -285,8 +289,9 @@ const checkArraysEasy = () => {
     }
 };
 
+// Removes score card and proceed button for round 2
 const removeCheckArraysEasy = () => {
-    $scoreMessage.remove();
+    $('#judge').empty();
     $('#proceed').remove();
 };
 
@@ -298,8 +303,16 @@ const checkArraysKisses = () => {
         endGameLose();
         console.log('Is this running?');
     } else if ($wrongAnswers < 3) {
-        nameTheEpisode();
+        $scoreMessageKisses = $('<h3>').text(`You got ${$wrongAnswers} questions wrong in that round. Your score is now ${$correctAnswers}.`).attr('id', '#judge');
+        $('#judge').append($scoreMessageKisses);
+        $('#proceed-kisses').css('display', 'block');
     }
+};
+
+// Removes score card and proceed button for round 3
+const removeCheckArraysKisses = () => {
+    $('#judge').empty();
+    $('#proceed-kisses').remove();
 };
 
 // Checks score after end of 'Round 3 - Name the Episode', and sends player to 'Round 4 - The Project' if wrong answers < 3, else, it will end the game
@@ -310,8 +323,16 @@ const checkArraysEpisode = () => {
         endGameLose();
         console.log('Is this running?');
     } else if ($wrongAnswers < 3) {
-        theProject();
+        $scoreMessageEpisode = $('<h3>').text(`You got ${$wrongAnswers} questions wrong in that round. Your score is now ${$correctAnswers}.`).attr('id', '#judge');
+        $('#judge').append($scoreMessageEpisode);
+        $('#proceed-episode').css('display', 'block');
     }
+};
+
+// Removes score button and proceed for round 4
+const removeCheckArraysEpisode = () => {
+    $('#judge').empty();
+    $('#proceed-episode').remove();
 };
 
 // Checks score after end of 'Round 4 - The Project' and sends player to 'Round 5 - Novels and Comics' if wrong answers are < 3. 
@@ -320,8 +341,15 @@ const checkArraysTheProject = () => {
     if ($wrongAnswers >= 3) {
         endGameLose();
     } else if ($wrongAnswers < 3) {
-        novelsAndComics();
+        $scoreMessageProject = $('<h3>').text(`You got ${$wrongAnswers} questions wrong in that round. Your score is now ${$correctAnswers}.`).attr('id', '#judge');
+        $('#judge').append($scoreMessageProject);
+        $('#proceed-project').css('display', 'block');
     }
+};
+
+const removeCheckArraysProject = () => {
+    $('#judge').empty();
+    $('#proceed-project').remove();
 };
 
 // Ends game if player has missed more than 3 questions in the last round
@@ -329,11 +357,25 @@ const endGameLose = () => {
     $endGameLoseMessage = $('<h2>').text(`You missed ${$wrongAnswers} questions in the last round, and have lost the game. Your total score was ${$correctAnswers}. Try again and beat your score!`).attr('id', '#judge');
     $('#judge').append($endGameLoseMessage);
     $('#play-again').css('display', 'block');
+    $endGameLoseMessage.fadeOut(20000);
     // $endGameLoseMessage.append($endGameLoseText);
     // $('#end-game').append($endGameLoseMessage);
     // const $playAgain = $('<button>').text('Try again');
 
-}
+};
+
+// const restartGame = () => {
+//     $('#ready').trigger('reset');
+//     $('#why-im-here').trigger('reset');
+//     $('#ultimate').trigger('reset');
+//     console.log("Are we getting here?")
+//     console.log(easyQuestions.length);
+// }
+// // Removes lose message when restarting the game
+// const removeLoseMessage = () => {
+//     console.log('Are you seeing this?')
+//     $('#play-again').css('display', 'none');
+// }
 
 // ==================================
 // AUDIO FILES AND FUNCTIONS
@@ -372,11 +414,13 @@ $('#easy-input').on('submit', (evt) => {
     if ($answer === easyQuestions[$random].Answer) {
         $('#display-question').append($randQuestionDisplay);
         easyQuestions.splice($random, 1);
+        console.log(easyQuestions.length);
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswers++;
-        console.log($correctAnswers);
+        $correctAnswersEasy = $correctAnswersEasy + 1;
+        console.log($correctAnswersEasy);
+        console.log($sumOfAnswers);
         $answer = $('#easy-answer').val('');
         $correctMessage.fadeOut(5000);
         randEasyQGenerator();
@@ -387,7 +431,7 @@ $('#easy-input').on('submit', (evt) => {
         $wrongAnswers++;
         console.log($wrongAnswers);
         easyQuestions.splice($random, 1);
-        $answer = $('#answer').val('');
+        $answer = $('#easy-answer').val('');
         $incorrectMessage.fadeOut(1000);
         randEasyQGenerator();
     }
@@ -405,13 +449,13 @@ $('#kisses-input').on('submit', (evt) => {
         // console.log($answer);
         $correctMessage = $('<h3>').text('Correct!');
         $('#display-question').append($randQuestionDisplay);
-        // timer =+ 15;
         kissesWithHistoryQuestions.splice($random, 1);
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswers =+ 2;
-        console.log($correctAnswers);
+        $correctAnswersKisses = $correctAnswersKisses + 2;
+        console.log($correctAnswersEasy);
+        console.log($sumOfAnswers);
         $answer = $('#kisses-input-answer').val('');
         $correctMessage.fadeOut(1000);
         randKissesQGenerator();
@@ -447,7 +491,7 @@ $('#episode-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswers+3;
+        $correctAnswersEpisode = $correctAnswersEpisode + 3;
         console.log($correctAnswers);
         $answer = $('#episode-input-answer').val('');
         $correctMessage.fadeOut(1000);
@@ -482,7 +526,7 @@ $('#the-project-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswers+4;
+        $correctAnswersProject = $correctAnswerProject + 4;
         console.log($correctAnswers);
         $answer = $('#the-project-input-answer').val('');
         $correctMessage.fadeOut(1000);
@@ -516,7 +560,7 @@ $('#novels-andcomics-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswers+5;
+        $correctAnswersNovels = $correctAnswersNovels + 5;
         console.log($correctAnswers);
         $answer = $('#novels-and-comics-input-answer').val('');
         $correctMessage.fadeOut(1000);
@@ -660,11 +704,11 @@ $('#easy-button').on('click', handlinkEffect);
 // BEGINS ROUND 2 - KISSES WITH HISTORY
 /////////////////////////////////////////
 
-// Adds 'Round 2 - Kisses with History' explanation to the DOM
-$('#proceed').on('click', kissesWithHistory);
-
 // Removes score update and Proceed button
 $('#proceed').on('click', removeCheckArraysEasy);
+
+// Adds 'Round 2 - Kisses with History' explanation to the DOM
+$('#proceed').on('click', kissesWithHistory);
 
 // Removes 'Round 2 - Kisses with History' explanation from the DOM
 $('#kisses-button').on('click', removeKisses);
@@ -685,6 +729,12 @@ $('#kisses-input-button').on('click', handlinkEffect);
 // BEGINS ROUND 3 - NAME THE EPISODE
 /////////////////////////////////////////
 
+// Removes score update and Proceed button
+$('#proceed-kisses').on('click', removeCheckArraysKisses);
+
+// Adds 'Round 3 - Name the Episode' explanation to the DOM
+$('#proceed-kisses').on('click', nameTheEpisode);
+
 // Removes 'Round 3 - Name the Episode' explanation from the DOM
 $('#episode-button').on('click', removeEpisode);
 
@@ -703,6 +753,12 @@ $('#episode-input-button').on('click', handlinkEffect);
 ////////////////////////////////
 // BEGINS ROUND 4 - THE PROJECT
 ////////////////////////////////
+
+// Removes score update and Proceed button
+$('#proceed-episode').on('click', removeCheckArraysEpisode);
+
+// Adds 'Round 4 - The Project' explanation to the DOM
+$('#proceed-episode').on('click', theProject);
 
 // Removes 'Round 4 - The Project' explanation from the DOM
 $('#the-project-button').on('click', removeProject);
@@ -723,6 +779,12 @@ $('#the-project-input-button').on('click', handlinkEffect);
 // BEGINS ROUND 5 - NOVELS AND COMICS
 //////////////////////////////////////
 
+// Removes score update and Proceed button
+$('#proceed-project').on('click', removeCheckArraysProject);
+
+// Adds 'Round 5 - Novels and Comics' explanation to the DOM
+$('#proceed-project').on('click', novelsAndComics);
+
 // Removes 'Final Round - Novels and Comics' explanation from the DOM
 $('#novels-and-comics-button').on('click', removeNovelsAndComics);
 
@@ -738,11 +800,17 @@ $('#novels-and-comics-button').on('click', randNovelsQGenerator);
 // Adds handlink effect to button click
 $('#novels-and-comics-input-button').on('click', handlinkEffect);
 
+///////////////////////////////
+// After each successful round
+///////////////////////////////
+
+
+
 //////////////////////
 // After end of game
 //////////////////////
 
-// Begins game over after player has lost (currently not attached)
-$('#play-again').on('click', randEasyQGenerator);
+// // Begins game over after player has lost
+// $('#play-again').on('click', restartGame);
 
 });
