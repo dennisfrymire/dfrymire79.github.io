@@ -12,29 +12,29 @@ $(() => {
     
   
 
-const runTimer = () => {
-    let timer = 60;
-    let interval = setInterval(function() {
-        timer--;
-        // Display 'counter' wherever you want to display it.
-        if (timer <= 0) {
-            clearInterval(interval);
+// const runTimer = () => {
+//     let timer = 60;
+//     let interval = setInterval(function() {
+//         timer--;
+//         if (timer <= 0) {
+//             clearInterval(interval);
             
 
-            $('#timer').html("<h3>Game Over</h3>"); 
-            endGameMusic();
-            $('#display-question').remove();
-            $('#answer').remove();
-            $('#button').remove();
-            $('#play-again').css('display', 'block');
-            // return;
+//             $('#timer').text("Game Over"); 
+//             endGameMusic();
+//             $('#display-question').remove();
+//             $('#easy-answer').remove();
+//             $('#easy-button').remove();
+//             $('#kisses-input-answer').remove();
+//             $('#play-again').css('display', 'block');
+            
 
-        }else{
-            $('#time').text(timer);
-        //   console.log("Timer --> " + timer);
-        }
-    }, 1000);
-}
+//         }else{
+//             $('#time').text(timer);
+//           console.log("Timer --> " + timer);
+//         }
+//     }, 1000);
+// }
 
 // =====================
 // QUESTION BANKS
@@ -124,7 +124,12 @@ const addRules = () => {
 const removeRules = () => {
     $('.rules-head').remove();
     $('.sub-head').remove();
+    $('#timer').css('display', 'block');
 };
+
+// addTimer = () => {
+//     $('#time').css('display', 'inline');
+// }
 
 // Removes 'Activate Accelerator Button' at the start of 'Round 1 - Easy Questions'
 const removeAcceleratorButton = () => {
@@ -265,13 +270,6 @@ const removeNovelsAndComicsAnswerBox = () => {
 // SCORE CHECKS
 ////////////////////
 
-// Score talley
-const $scoreTalley = () => {
-    $('#proceed').css('display', 'block');
-
-
-}
-
 // Checks score after end of 'Round 1 - Easy Questions' round, and sends player on to Round 2 - Kisses with History if wrong answers < 3, else, it will end the game
 const checkArraysEasy = () => {
     removeEasyAnswerBox();
@@ -280,12 +278,16 @@ const checkArraysEasy = () => {
         endGameLose();
         console.log('Is this running?');
     } else if ($wrongAnswers < 3) {
-        $testMessage = $('<h3>').text(`You got ${$wrongAnswers} questions wrong in that round. Your score is ${$correctAnswers}.`).attr('id', '#judge');
-        $('#judge').append($testMessage);
-        // $nextRound = $('<button>').text('Proceed to the next round').attr('id', '#easy-button');
-        $('#judge').append($nextRound);
-        // kissesWithHistory();
+        $scoreMessage = $('<h3>').text(`You got ${$wrongAnswers} questions wrong in that round. Your score is now ${$correctAnswers}.`).attr('id', '#judge');
+        $('#judge').append($scoreMessage);
+        $('#proceed').css('display', 'block');
+        // kissesWithHistory
     }
+};
+
+const removeCheckArraysEasy = () => {
+    $scoreMessage.remove();
+    $('#proceed').remove();
 };
 
 // Checks score after end of 'Round 2 - Kisses with History', and sends player to 'Round 3 - Name the Episode' if wrong answers < 3, else, it will end the game
@@ -324,10 +326,11 @@ const checkArraysTheProject = () => {
 
 // Ends game if player has missed more than 3 questions in the last round
 const endGameLose = () => {
-    $endGameLoseMessage = $('<div>');
-    $endGameLoseText = $('<h2>').text(`You missed ${$wrongAnswers} questions in the last round, and have lost the game. Your total score was ${$correctAnswers}. Try again and beat your score!`);
-    $endGameLoseMessage.append($endGameLoseText);
-    $('#end-game').append($endGameLoseMessage);
+    $endGameLoseMessage = $('<h2>').text(`You missed ${$wrongAnswers} questions in the last round, and have lost the game. Your total score was ${$correctAnswers}. Try again and beat your score!`).attr('id', '#judge');
+    $('#judge').append($endGameLoseMessage);
+    $('#play-again').css('display', 'block');
+    // $endGameLoseMessage.append($endGameLoseText);
+    // $('#end-game').append($endGameLoseMessage);
     // const $playAgain = $('<button>').text('Try again');
 
 }
@@ -647,12 +650,21 @@ $('#play-game').on('click', playLeapEffect);
 
 // $('#play-game').on('click', runTimer);
 
+// // Adds Timer to the DOM
+// $('#play-game').on('click', addTimer);
+
 // Adds handlink effect to button click
 $('#easy-button').on('click', handlinkEffect);
 
 /////////////////////////////////////////
 // BEGINS ROUND 2 - KISSES WITH HISTORY
 /////////////////////////////////////////
+
+// Adds 'Round 2 - Kisses with History' explanation to the DOM
+$('#proceed').on('click', kissesWithHistory);
+
+// Removes score update and Proceed button
+$('#proceed').on('click', removeCheckArraysEasy);
 
 // Removes 'Round 2 - Kisses with History' explanation from the DOM
 $('#kisses-button').on('click', removeKisses);

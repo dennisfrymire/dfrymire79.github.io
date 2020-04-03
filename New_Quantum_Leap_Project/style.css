@@ -200,12 +200,12 @@ body {
     font-family: 'Orbitron', sans-serif;
     font-size: 50px;
     text-align: center;
-    width: 250px;
-    height: 25px;
+    /* width: 250px;
+    height: 25px; */
     /* background-color: lightyellow; */
     color: rgb(81, 124, 195);
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 50px;
+    margin-right: 50px;
     margin-top: 10px;
     margin-bottom: 25px;
 }
@@ -325,22 +325,22 @@ body {
 }
 
 #time{
-    display: block;
-    margin-left: 50%;
-    margin-right: 50%;
-    font-size: 60px;
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: red;
+    font-size: 100px;
     font-family: 'Orbitron', sans-serif;
     /* text-align: center; */
-    padding: 20px;
+    padding: 0px;
   }
 
   #timer {
-    display: block;
-    /* margin-left: 80%;
-    margin-right: 80%; */
+    margin-left:auto;
+    margin-right: auto;
     font-size: 60px;
     font-family: 'Orbitron', sans-serif;
-    text-align: center;
+    /* text-align: center; */
     padding: 20px;
     display: none;
   }
@@ -357,7 +357,7 @@ body {
     z-index: 5;
 }
 
-#play-again {
+#play-again, #proceed {
     box-shadow:inset 0px 1px 0px 0px #9fb4f2;
 	background:linear-gradient(to bottom, #6686bd 5%, #476e9e 100%);
 	background-color:#6686bd;
@@ -374,6 +374,10 @@ body {
     margin-right: auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    display: none;
+}
+
+#score-talley {
     display: none;
 }
 
