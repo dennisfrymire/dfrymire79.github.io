@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type= "text/css" href="style.css">
+    <title>The Ultimate Quantum Leap Quiz</title>
+</head>
+<header>
+    <img src="images/background-1.jpg">
+    <h1>The Ultimate Quantum Leap Quiz</h1>
+</header>
+<body>
+    <section class="rules-head">
+            <div class="sub-head" id="ready">  
+                <h2> Are you ready to test your knowledge of the sci-fi cult classic TV show,
+                <br>
+                <em>Quantum Leap?</em></h2>
+                <button id="why-im-here">I think that's why I'm here.</button>
+            </div>
+            <div class="rules-body">
+                <div class="sub-head" id="rules"> 
+                    <b>The Rules:</b>
+                    <ul>
+        
+                        <li>The countdown clock starts when you hit <em>Activate the Accelerator</em>.</li> 
+                        <p>
+                        <li>You will have 30 seconds to answer the first question.</li> 
+                        <p>
+                        <li>Fifteen seconds will be added to the clock for every correct answer.</li>
+                        <p>
+                        <li>Fifteen seconds will be deducted from the clock for every incorrect answer.</li> 
+                        <p>
+                        <li>As you progress through the game, the questions get tougher!</li>
+                        <p>
+                        <li>Answer 25 correct questions, and you win the game.</li>
+                        <p>
+                        <li>If the timer hit zero, you lose the game.</li>
+                        <p>
+                        <li>Keep coming back to play! This quiz has over 100 randomly generated questions.</li>    
+                    </ul>
+                    
+                </div>
+        </div>
+    </section>
+    <section class="modal-classes">
+        <div id="kisses">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia, vel ipsa quaerat repudiandae neque id et facilis quasi doloribus magnam adipisci aliquid hic maxime quibusdam corrupti minus molestiae, architecto distinctio.
+        </div>
+            <button id="kisses-button">Begin Round 2 - Kisses With History</button>
+    
+        <div id="episode">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia, vel ipsa quaerat repudiandae neque id et facilis quasi doloribus magnam adipisci aliquid hic maxime quibusdam corrupti minus molestiae, architecto distinctio.
+        </div>
+            <button id="episode-button">Begin Round 3 - Name the Episode</button>
+            <div id="the-project">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia, vel ipsa quaerat repudiandae neque id et facilis quasi doloribus magnam adipisci aliquid hic maxime quibusdam corrupti minus molestiae, architecto distinctio.
+        </div>
+            <button id="the-project-button">Begin Round 3 - Name the Episode</button>
+        <div id="novels-and-comics">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia, vel ipsa quaerat repudiandae neque id et facilis quasi doloribus magnam adipisci aliquid hic maxime quibusdam corrupti minus molestiae, architecto distinctio.
+        </div>
+            <button id="novels-and-comics-button">Begin Round 3 - Name the Episode</button>
+    </section>
+    <section class="game-end">
+        <div id="end-game">
+        </div>
+    </section>
+        
+    <div id="judge"></div>
+    
+            <button id="play-game">Activate the Accelerator</button>
+        
+
+        <div id="display-question"></div>
+    
+
+        <form id="easy-input">
+            <input type="text" class="modal-buttons" id="easy-answer" placeholder="answer"/>
+            <input type="submit" class="modal-buttons" id="easy-button" value="Enter"/>
+        </form>
+        <form id="kisses-input">
+                <input type="text" class="modal-buttons" id="kisses-input-answer" placeholder="answer"/>
+                <input type="submit" class="modal-buttons" id="kisses-input-button" value="Enter"/>
+        <form id="episode-input">
+                <input type="text" class="modal-buttons" id="episode-input-answer" placeholder="answer"/>
+                <input type="submit" class="modal-buttons" id="episode-input-button" value="Enter"/>
+        </form>
+        <form id="the-project-input">
+            <input type="text" class="modal-buttons" id="the-project-input-answer" placeholder="answer"/>
+            <input type="submit" class="modal-buttons" id="the-project-input-button" value="Enter"/>
+        </form>
+        <form id="novels-and-comics-input">
+            <input type="text" class="modal-buttons" id="novels-and-comics-input-answer" placeholder="answer"/>
+            <input type="submit" class="modal-buttons" id="novels-and-comics-input-button" value="Enter"/>
+        </form>
+        
+        
+    
+    <div id="timer">
+        <span id="timer">
+            <span id="time">60</span>
+    </div>
+    <button class="modal-buttons" id="play-again">Play Again?</button>
+    <button id="play-game">Activate the Accelerator</button>
+
+    <!-- AUDIO FILES -->
+
+    <audio id="leap-effect">
+    <source src="sounds/Quantum_Leap_Leap_Effect.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="handlink-effect">
+    <source src="sounds/handlinkClick.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="end-game-music">
+    <source src="sounds/season1adbumper.mp3" type="audio/mpeg">
+    </audio>
+    
+</body>
+</html>
