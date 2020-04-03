@@ -265,6 +265,13 @@ const removeNovelsAndComicsAnswerBox = () => {
 // SCORE CHECKS
 ////////////////////
 
+// Score talley
+const $scoreTalley = () => {
+    $('#proceed').css('display', 'block');
+
+
+}
+
 // Checks score after end of 'Round 1 - Easy Questions' round, and sends player on to Round 2 - Kisses with History if wrong answers < 3, else, it will end the game
 const checkArraysEasy = () => {
     removeEasyAnswerBox();
@@ -273,7 +280,11 @@ const checkArraysEasy = () => {
         endGameLose();
         console.log('Is this running?');
     } else if ($wrongAnswers < 3) {
-        kissesWithHistory();
+        $testMessage = $('<h3>').text(`You got ${$wrongAnswers} questions wrong in that round. Your score is ${$correctAnswers}.`).attr('id', '#judge');
+        $('#judge').append($testMessage);
+        // $nextRound = $('<button>').text('Proceed to the next round').attr('id', '#easy-button');
+        $('#judge').append($nextRound);
+        // kissesWithHistory();
     }
 };
 
@@ -356,10 +367,7 @@ $('#easy-input').on('submit', (evt) => {
     evt.preventDefault();
     let $answer = $('#easy-answer').val();
     if ($answer === easyQuestions[$random].Answer) {
-        // console.log($answer);
-        $correctMessage = $('<h3>').text('Correct!');
         $('#display-question').append($randQuestionDisplay);
-        // timer =+ 15;
         easyQuestions.splice($random, 1);
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
@@ -376,7 +384,6 @@ $('#easy-input').on('submit', (evt) => {
         $wrongAnswers++;
         console.log($wrongAnswers);
         easyQuestions.splice($random, 1);
-        // console.log(easyQuestions.length);
         $answer = $('#answer').val('');
         $incorrectMessage.fadeOut(1000);
         randEasyQGenerator();
@@ -609,6 +616,11 @@ const randNovelsQGenerator = () => {
 $('#why-im-here').on('click', removeIntro);
 $('#why-im-here').on('click', addRules);
 $('#why-im-here').on('click', playTheme);
+
+
+//////////////////////////////
+// Event Listeners
+//////////////////////////////
 
 
 //////////////////////////////
