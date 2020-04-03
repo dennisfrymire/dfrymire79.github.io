@@ -12,29 +12,29 @@ $(() => {
     
   
 
-// const runTimer = () => {
-//     let timer = 10;
-//     let interval = setInterval(function() {
-//         timer--;
-//         // Display 'counter' wherever you want to display it.
-//         if (timer <= 0) {
-//             clearInterval(interval);
+const runTimer = () => {
+    let timer = 60;
+    let interval = setInterval(function() {
+        timer--;
+        // Display 'counter' wherever you want to display it.
+        if (timer <= 0) {
+            clearInterval(interval);
             
 
-//             $('#timer').html("<h3>Game Over</h3>"); 
-//             endGameMusic();
-//             $('#display-question').remove();
-//             $('#answer').remove();
-//             $('#button').remove();
-//             $('#play-again').css('display', 'block');
-//             // return;
+            $('#timer').html("<h3>Game Over</h3>"); 
+            endGameMusic();
+            $('#display-question').remove();
+            $('#answer').remove();
+            $('#button').remove();
+            $('#play-again').css('display', 'block');
+            // return;
 
-//         }else{
-//             $('#time').text(timer);
-//         //   console.log("Timer --> " + timer);
-//         }
-//     }, 1000);
-// }
+        }else{
+            $('#time').text(timer);
+        //   console.log("Timer --> " + timer);
+        }
+    }, 1000);
+}
 
 // =====================
 // QUESTION BANKS
@@ -107,6 +107,7 @@ const novelsAndComicsQuestions = [
 const removeIntro = () => {
     $('#ready').remove();
     $('#why-im-here').remove();
+    $('#ultimate').css('display', 'none');
 };
 
 // Adds the Rules and 'Activate Accelerator' button
@@ -323,6 +324,14 @@ const endGameLose = () => {
 // ==================================
 // AUDIO FILES AND FUNCTIONS
 // ==================================
+const playTheme = () => {
+    $('audio#theme')[0].play();
+}
+
+const stopTheme = () => {
+    $('audio#theme')[0].pause();
+}
+
 const playLeapEffect = () => {
     $('audio#leap-effect')[0].play();
 }
@@ -358,7 +367,7 @@ $('#easy-input').on('submit', (evt) => {
         $correctAnswers++;
         console.log($correctAnswers);
         $answer = $('#easy-answer').val('');
-        $correctMessage.fadeOut(1000);
+        $correctMessage.fadeOut(5000);
         randEasyQGenerator();
     } else if ($answer !== easyQuestions[$random].Answer) {
         $randQuestionDisplay.remove();
@@ -367,7 +376,7 @@ $('#easy-input').on('submit', (evt) => {
         $wrongAnswers++;
         console.log($wrongAnswers);
         easyQuestions.splice($random, 1);
-        console.log(easyQuestions.length);
+        // console.log(easyQuestions.length);
         $answer = $('#answer').val('');
         $incorrectMessage.fadeOut(1000);
         randEasyQGenerator();
@@ -391,7 +400,7 @@ $('#kisses-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswers++;
+        $correctAnswers =+ 2;
         console.log($correctAnswers);
         $answer = $('#kisses-input-answer').val('');
         $correctMessage.fadeOut(1000);
@@ -403,7 +412,7 @@ $('#kisses-input').on('submit', (evt) => {
         $wrongAnswers++;
         console.log($wrongAnswers);
         kissesWithHistoryQuestions.splice($random, 1);
-        console.log(kissesWithHistoryQuestions.length);
+        // console.log(kissesWithHistoryQuestions.length);
         $answer = $('#kisses-input-answer').val('');
         $incorrectMessage.fadeOut(1000);
         randKissesQGenerator();
@@ -418,6 +427,7 @@ $('#kisses-input').on('submit', (evt) => {
 $('#episode-input').on('submit', (evt) => {
     evt.preventDefault();
     let $answer = $('#episode-input-answer').val();
+    console.log('Are we making it this far?');
     if ($answer === nameTheEpisodeQuestions[$random].Answer) {
         // console.log($answer);
         $correctMessage = $('<h3>').text('Correct!');
@@ -427,7 +437,7 @@ $('#episode-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswers++;
+        $correctAnswers+3;
         console.log($correctAnswers);
         $answer = $('#episode-input-answer').val('');
         $correctMessage.fadeOut(1000);
@@ -462,7 +472,7 @@ $('#the-project-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswers++;
+        $correctAnswers+4;
         console.log($correctAnswers);
         $answer = $('#the-project-input-answer').val('');
         $correctMessage.fadeOut(1000);
@@ -496,7 +506,7 @@ $('#novels-andcomics-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswers++;
+        $correctAnswers+5;
         console.log($correctAnswers);
         $answer = $('#novels-and-comics-input-answer').val('');
         $correctMessage.fadeOut(1000);
@@ -598,6 +608,7 @@ const randNovelsQGenerator = () => {
 // Removes intro message and places the rules of the game onto the DOM
 $('#why-im-here').on('click', removeIntro);
 $('#why-im-here').on('click', addRules);
+$('#why-im-here').on('click', playTheme);
 
 
 //////////////////////////////
@@ -606,6 +617,9 @@ $('#why-im-here').on('click', addRules);
 
 // Removes Rules from the DOM
 $('#play-game').on('click', removeRules);
+
+// Stops theme song
+$('#play-game').on('click', stopTheme);
 
 // Removes 'Begin Round 1' from DOM
 $('#play-game').on('click', removeAcceleratorButton);

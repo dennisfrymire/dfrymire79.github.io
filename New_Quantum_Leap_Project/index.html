@@ -16,7 +16,7 @@
 </head>
 <header>
     <img src="images/background-1.jpg">
-    <h1>The Ultimate Quantum Leap Quiz</h1>
+    <h1 id="ultimate">The Ultimate Quantum Leap Quiz</h1>
 </header>
 <body>
     <section class="rules-head">
@@ -26,39 +26,48 @@
                 <em>Quantum Leap?</em></h2>
                 <button id="why-im-here">I think that's why I'm here.</button>
             </div>
-            <div class="rules-body">
+            <section>
                 <div class="sub-head" id="rules"> 
-                    <b>The Rules:</b>
-                    <ul>
-        
-                        <li>The countdown clock starts when you hit <em>Activate the Accelerator</em>.</li> 
-                        <p>
-                        <li>You will have 30 seconds to answer the first question.</li> 
-                        <p>
-                        <li>Fifteen seconds will be added to the clock for every correct answer.</li>
-                        <p>
-                        <li>Fifteen seconds will be deducted from the clock for every incorrect answer.</li> 
-                        <p>
-                        <li>As you progress through the game, the questions get tougher!</li>
-                        <p>
-                        <li>Answer 25 correct questions, and you win the game.</li>
-                        <p>
-                        <li>If the timer hit zero, you lose the game.</li>
-                        <p>
-                        <li>Keep coming back to play! This quiz has over 100 randomly generated questions.</li>    
-                    </ul>
+                    <div id="quantum-rules"><b><em>The Quantum Leap Rules:</b></em></div>
+                    <p>
+                    <p>
+                    <div class="rules-body">
+                    1. The Time Traveler shall not take advantage of his or her position to alter the course of their own...
+                    <p>
+                    <em>Wait...wrong Quantum Leap rules.</em>
+                    <p>
+                    Listen...this game is pretty straight forward: There are five rounds of play, 10 questions each. Each correct answer is worth the number of points corresponding with its round. (Round 1 questions are worth one point, Round 2 questions are worth two, and so on.)
+                    <p>
+                    The questions get progressively harder in each round. 
+                    <p>
+                    After every round, your score will be tallied. Get three or more questions wrong, and the game is over. 
+                    <p>
+                    The first round is called<em><b> Swiss-Cheesed Brain </b></em>: These are general questions about the series that even the most casual fan should know.
+                    <p>
+                    When you're ready, activate the accelerator.
+                    </div>
+            </section>        
+
+
+
+                    
                     
                 </div>
         </div>
     </section>
     <section class="modal-classes">
         <div id="kisses">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia, vel ipsa quaerat repudiandae neque id et facilis quasi doloribus magnam adipisci aliquid hic maxime quibusdam corrupti minus molestiae, architecto distinctio.
+            <div id="quantum-rules">Kisses with History</div>   
+            <p>
+            Sam's leaps almost always had him touching the lives everyday people (until the show went full gimmick-palooza in the 5th and final season). But every once when a while, he accidentally crossed paths and influenced historic people and events.
+        </p> 
         </div>
             <button id="kisses-button">Begin Round 2 - Kisses With History</button>
     
         <div id="episode">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia, vel ipsa quaerat repudiandae neque id et facilis quasi doloribus magnam adipisci aliquid hic maxime quibusdam corrupti minus molestiae, architecto distinctio.
+                <em><b>Name that Episode</b></em>: 
+                <p>
+                Pretty straight forward. The answers to these questions will be titles to particular episodes.
         </div>
             <button id="episode-button">Begin Round 3 - Name the Episode</button>
             <div id="the-project">
@@ -75,13 +84,14 @@
         </div>
     </section>
         
-    <div id="judge"></div>
+    
     
             <button id="play-game">Activate the Accelerator</button>
         
 
         <div id="display-question"></div>
-    
+
+        
 
         <form id="easy-input">
             <input type="text" class="modal-buttons" id="easy-answer" placeholder="answer"/>
@@ -102,6 +112,9 @@
             <input type="text" class="modal-buttons" id="novels-and-comics-input-answer" placeholder="answer"/>
             <input type="submit" class="modal-buttons" id="novels-and-comics-input-button" value="Enter"/>
         </form>
+
+
+        <div id="judge"></div>
         
         
     
@@ -122,6 +135,9 @@
     </audio>
     <audio id="end-game-music">
     <source src="sounds/season1adbumper.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="theme">
+    <source src="sounds/daniel-caine1.MP3" type="audio/mpeg">
     </audio>
     
 </body>
