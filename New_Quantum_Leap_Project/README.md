@@ -10,7 +10,7 @@ This is a trivia game focused on the sci-fi TV show, Quantum Leap.
 
 * Each round has its own category, and includes 10 randomly-generated questions.
  
- * The score is tallied at end of every round. Each correct answer is worth a number of points corresponding to the round (Round 1 questions are worth 1 point, Round 2 questions are worth 2 points, and so on.) Point accumulate from round to round. If the players gets 3 or more wrong answers in any given round, the game is over. 
+ * The score is tallied at end of every round. Each correct answer is worth a number of points corresponding to the round (Round 1 questions are worth 1 point, Round 2 questions are worth 2 points, and so on.) Points accumulate from round to round. If the players gets 3 or more wrong answers in any given round, the game is over. 
 
  Technologies Used:
 
@@ -37,7 +37,8 @@ This is a trivia game focused on the sci-fi TV show, Quantum Leap.
 
  The overall design is admittedly rudimentary. My layout and CSS skills are are items I plan to give more time to developing.
 
- Final note, I had originally envisioned the game to include a timer with a pre-set amount of time at the start of game play. The counter would have time added or subtracted from it in relation to correct or incorrect answers given. I wasn't able to achieve this, and so I punted with a different way to score the game. 
+ I had originally envisioned the game to include a timer with a pre-set amount of time at the start of game play. The counter would have time added or subtracted from it in relation to correct or incorrect answers given. I wasn't able to achieve this, and so I punted with a different way to score the game. 
+
 
 ============================================================================
 # App Demo

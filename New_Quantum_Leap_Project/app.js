@@ -16,15 +16,15 @@ $(() => {
 
 const easyQuestions = [
     {Question: `What is the name of the parallel hybrid computer that runs Project Quantum Leap?`, Answer: `Ziggy`},
-    {Question: `What is the name of Sam's holographic best friend and guide`, Answer: `Al`},
-    {Question: `On what network did Quantum Leap air`, Answer: `NBC`},
+    {Question: `What is the name of Sam's holographic best friend and guide?`, Answer: `Al`},
+    {Question: `On what network did Quantum Leap air?`, Answer: `NBC`},
     {Question: `Who played Dr. Sam Beckett?`, Answer: `Scott Bakula`},
     {Question: `Who played the Project Observer, Al?`, Answer: `Dean Stockwell`},
     {Question: `In what year did the series debut?`, Answer: `1989`},
     {Question: `How many seasons did the show last?`, Answer: `Five`},
     {Question: `In the opening narration of most episodes, we're told that Sam is always hoping that his next leap will be the leap...where?`, Answer: `Home`},
     {Question: `In what Illinois city does Sam rescue rock 'n roll music in 1959?`, Answer: 'Peoria'},
-    {Question: `Al can walk through things in the past, because he is a what?`, Answer: `Hologram.`},
+    {Question: `Al can walk through things in the past, because he is a what?`, Answer: `Hologram`},
 ];
 
 const kissesWithHistoryQuestions = [
@@ -336,10 +336,14 @@ const checkArraysNovels = () => {
 
 // Ends game if player has missed more than 3 questions in the last round
 const endGameLose = () => {
-    $endGameLoseMessage = $('<h2>').text(`You missed ${$wrongAnswers} questions in the last round, and have lost the game. Your total score was ${$correctAnswers}. Try again and beat your score!`).attr('id', '#judge');
+    $endGameLoseMessage = $('<h2>')
+        .text(`You missed ${$wrongAnswers} questions in the last round, and have lost the game. Your total score was ${$correctAnswers}. Try again and beat your score!`)
+        .attr('id', '#judge')
+        .css('color', 'red')
+        .on($('audio#end-game-music')[0].play())
     $('#judge').append($endGameLoseMessage);
     $('#play-again').css('display', 'block');
-    $endGameLoseMessage.fadeOut(20000);
+    $endGameLoseMessage;
 
 };
 
