@@ -1,4 +1,3 @@
-
 $(() => {
 // ======================
 // GLOBAL VARIABLES
@@ -8,41 +7,8 @@ $(() => {
     let $random;
     let $randQuestionDisplay;
     let $wrongAnswers = 0;
-    let $correctAnswersEasy = 0;
-    let $correctAnswersKisses = 0;
-    let $correctAnswersEpisode = 0;
-    let $correctAnswersProject = 0;
-    let $correctAnswersNovels = 0;
-    let $correctAnswers = [$correctAnswersEasy + $correctAnswersKisses + $correctAnswersEpisode + $correctAnswersProject + $correctAnswersNovels];
-    let $sumOfAnswers = $correctAnswers.reduce(function(a, b) {
-        return a + b;
-    }, 0);
-    
-  
+    let $correctAnswers = 0;
 
-// const runTimer = () => {
-//     let timer = 60;
-//     let interval = setInterval(function() {
-//         timer--;
-//         if (timer <= 0) {
-//             clearInterval(interval);
-            
-
-//             $('#timer').text("Game Over"); 
-//             endGameMusic();
-//             $('#display-question').remove();
-//             $('#easy-answer').remove();
-//             $('#easy-button').remove();
-//             $('#kisses-input-answer').remove();
-//             $('#play-again').css('display', 'block');
-            
-
-//         }else{
-//             $('#time').text(timer);
-//           console.log("Timer --> " + timer);
-//         }
-//     }, 1000);
-// }
 
 // =====================
 // QUESTION BANKS
@@ -57,12 +23,12 @@ const easyQuestions = [
     {Question: `In what year did the final episode air?`, Answer: `1993`},
     {Question: `Which U.S. president did Sam encounter as a young boy in 1950s New York?`, Answer: `Donald Trump`},
     {Question: `In "How the Tess Was Won", Sam accidentally helps Buddy Holly come up with the lyrics for what song?`, Answer: `Peggy Sue`},
-    
+    {Question: `What is the name of the intellectually-disabled young man Sam leaps into in Season 2 (first name only)?`, Answer: `Jimmy`},
+    {Question: `In what year does "Catch a Falling Star" take place?`, Answer: `1979`},
 ];
 
 const kissesWithHistoryQuestions = [
-    {Question: `What is the name of the intellectually-disabled young man Sam leaps into in Season 2 (first name only)?`, Answer: `Jimmy`},
-    {Question: `In what year does "Catch a Falling Star" take place?`, Answer: `1979`},
+    
     {Question: `What was Al's nickname as a young naval cadet?`, Answer: `Bingo`},
     {Question: `What was the name of Captain Galaxy's sidekick?`, Answer: `Future Boy`},
     {Question: `What year does Al leap into in the episode "The Leap Back"?`, Answer: `1945`},
@@ -106,10 +72,14 @@ const novelsAndComicsQuestions = [
     {Question: `Sam is the lead singer of what 70's glam rock band in the episode "Glitter Rock"?`, Answer: `King Thunder`},
     {Question: `What third season episode was almost the final episode aired before a letter-writing campaign saved the series?`, Answer: `Runaway`}
 ];
+//==================================================================================================
+//======================================
+// FUNCTIONS FOR 5 ROUNDS OF GAME PLAY
+//======================================
 
-/////////////////////////////
-// FUNCTIONS FOR GAME INTRO
-/////////////////////////////
+////////////////////
+// INTRO
+///////////////////
 
 // Removes Intro message and 'Why I'm Here' Button
 const removeIntro = () => {
@@ -125,7 +95,7 @@ const addRules = () => {
 };
 
 ////////////////////////////
-// ROUND 1 - EASY QUESTIONS
+// ROUND 1 - SWISS-CHEESED
 ////////////////////////////
 
 // Removes the Rules and the start of 'Round 1 - Easy Questions'
@@ -270,9 +240,9 @@ const removeNovelsAndComicsAnswerBox = () => {
     $('#the-project-input-button').css('display', 'none');
 }
 
-/////////////////////
+//===========================================================================================
 // SCORE CHECKS
-////////////////////
+//===========================================================================================
 
 // Checks score after end of 'Round 1 - Easy Questions' round, and sends player on to Round 2 - Kisses with History if wrong answers < 3, else, it will end the game
 const checkArraysEasy = () => {
@@ -352,34 +322,30 @@ const removeCheckArraysProject = () => {
     $('#proceed-project').remove();
 };
 
+// Checks score after end of 'Round 4 - The Project' and sends player to 'Round 5 - Novels and Comics' if wrong answers are < 3. 
+const checkArraysNovels = () => {
+    removeNovelsAndComicsAnswerBox();
+    if ($wrongAnswers >= 3) {
+        endGameLose();
+    } else if ($wrongAnswers < 3) {
+        $scoreMessageProject = $('<h3>').text(`You got ${$wrongAnswers} questions wrong in that round. Your score is now ${$correctAnswers}.`).attr('id', '#judge');
+        $('#judge').append($scoreMessageProject);
+        $('#end-game-win').css('display', 'block');
+    }
+};
+
 // Ends game if player has missed more than 3 questions in the last round
 const endGameLose = () => {
-    $endGameLoseMessage = $('<h2>').text(`You missed ${$wrongAnswers} questions in the last round, and have lost the game. Your total score was ${$correctAnswers}. Try again and beat your score!`).attr('id', '#judge');
+    $endGameLoseMessage = $('<h2>').text(`You missed ${$wrongAnswers} questions in the last round, and have lost the game. Your total score was ${$sumOfAnswers}. Try again and beat your score!`).attr('id', '#judge');
     $('#judge').append($endGameLoseMessage);
     $('#play-again').css('display', 'block');
     $endGameLoseMessage.fadeOut(20000);
-    // $endGameLoseMessage.append($endGameLoseText);
-    // $('#end-game').append($endGameLoseMessage);
-    // const $playAgain = $('<button>').text('Try again');
 
 };
 
-// const restartGame = () => {
-//     $('#ready').trigger('reset');
-//     $('#why-im-here').trigger('reset');
-//     $('#ultimate').trigger('reset');
-//     console.log("Are we getting here?")
-//     console.log(easyQuestions.length);
-// }
-// // Removes lose message when restarting the game
-// const removeLoseMessage = () => {
-//     console.log('Are you seeing this?')
-//     $('#play-again').css('display', 'none');
-// }
-
-// ==================================
+// =========================================================================================
 // AUDIO FILES AND FUNCTIONS
-// ==================================
+// =========================================================================================
 const playTheme = () => {
     $('audio#theme')[0].play();
 }
@@ -396,17 +362,17 @@ const handlinkEffect = () => {
     $('audio#handlink-effect')[0].play();
 }
 
-const endGameMusic = () => {
-    $('audio#end-game-music')[0].play();
+const endTheme = () => {
+    $('audio#rock-theme')[0].play();
 }
 
-// ====================================================
+// ========================================================================================
 // ANSWER INPUTS
-// ====================================================
+// ========================================================================================
 
-// =====================
+// /////////////////////
 // Easy Questions Input
-// =====================
+// /////////////////////
  
 $('#easy-input').on('submit', (evt) => {
     evt.preventDefault();
@@ -418,21 +384,18 @@ $('#easy-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswersEasy = $correctAnswersEasy + 1;
-        console.log($correctAnswersEasy);
-        console.log($sumOfAnswers);
+        $correctAnswers +=1;
         $answer = $('#easy-answer').val('');
-        $correctMessage.fadeOut(5000);
+        $correctMessage.fadeOut(2000);
         randEasyQGenerator();
     } else if ($answer !== easyQuestions[$random].Answer) {
         $randQuestionDisplay.remove();
         $incorrectMessage = $('<h3>').text('Incorrect!').css('color', 'red');
         $('#judge').append($incorrectMessage);
         $wrongAnswers++;
-        console.log($wrongAnswers);
         easyQuestions.splice($random, 1);
         $answer = $('#easy-answer').val('');
-        $incorrectMessage.fadeOut(1000);
+        $incorrectMessage.fadeOut(2000);
         randEasyQGenerator();
     }
     
@@ -453,9 +416,7 @@ $('#kisses-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswersKisses = $correctAnswersKisses + 2;
-        console.log($correctAnswersEasy);
-        console.log($sumOfAnswers);
+        $correctAnswers +=2;
         $answer = $('#kisses-input-answer').val('');
         $correctMessage.fadeOut(1000);
         randKissesQGenerator();
@@ -464,7 +425,6 @@ $('#kisses-input').on('submit', (evt) => {
         $incorrectMessage = $('<h3>').text('Incorrect!').css('color', 'red');
         $('#judge').append($incorrectMessage);
         $wrongAnswers++;
-        console.log($wrongAnswers);
         kissesWithHistoryQuestions.splice($random, 1);
         // console.log(kissesWithHistoryQuestions.length);
         $answer = $('#kisses-input-answer').val('');
@@ -481,7 +441,6 @@ $('#kisses-input').on('submit', (evt) => {
 $('#episode-input').on('submit', (evt) => {
     evt.preventDefault();
     let $answer = $('#episode-input-answer').val();
-    console.log('Are we making it this far?');
     if ($answer === nameTheEpisodeQuestions[$random].Answer) {
         // console.log($answer);
         $correctMessage = $('<h3>').text('Correct!');
@@ -491,8 +450,7 @@ $('#episode-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswersEpisode = $correctAnswersEpisode + 3;
-        console.log($correctAnswers);
+        $correctAnswers +=3;
         $answer = $('#episode-input-answer').val('');
         $correctMessage.fadeOut(1000);
         randEpisodeQGenerator();
@@ -501,9 +459,7 @@ $('#episode-input').on('submit', (evt) => {
         $incorrectMessage = $('<h3>').text('Incorrect!').css('color', 'red');
         $('#judge').append($incorrectMessage);
         $wrongAnswers++;
-        console.log($wrongAnswers);
         nameTheEpisodeQuestions.splice($random, 1);
-        console.log(nameTheEpisodeQuestions.length);
         $answer = $('#episode-input-answer').val('');
         $incorrectMessage.fadeOut(1000);
         randEpisodeQGenerator();
@@ -526,8 +482,7 @@ $('#the-project-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswersProject = $correctAnswerProject + 4;
-        console.log($correctAnswers);
+        $correctAnswers += 4;
         $answer = $('#the-project-input-answer').val('');
         $correctMessage.fadeOut(1000);
         randProjectQGenerator();
@@ -536,7 +491,6 @@ $('#the-project-input').on('submit', (evt) => {
         $incorrectMessage = $('<h3>').text('Incorrect!').css('color', 'red');
         $('#judge').append($incorrectMessage);
         $wrongAnswers++;
-        console.log($wrongAnswers);
         theProjectQuestions.splice($random, 1);
         $answer = $('#the-project-input-answer').val('');
         $incorrectMessage.fadeOut(1000);
@@ -560,8 +514,7 @@ $('#novels-andcomics-input').on('submit', (evt) => {
         $randQuestionDisplay.remove();
         $correctMessage = $('<h3>').text('Correct!');
         $('#judge').append($correctMessage);
-        $correctAnswersNovels = $correctAnswersNovels + 5;
-        console.log($correctAnswers);
+        $correctAnswers += 5;
         $answer = $('#novels-and-comics-input-answer').val('');
         $correctMessage.fadeOut(1000);
         randNovelsQGenerator();
@@ -570,7 +523,6 @@ $('#novels-andcomics-input').on('submit', (evt) => {
         $incorrectMessage = $('<h3>').text('Incorrect!').css('color', 'red');
         $('#judge').append($incorrectMessage);
         $wrongAnswers++;
-        console.log($wrongAnswers);
         novelsAndComicsQuestions.splice($random, 1);
         $answer = $('#novels-and-comics-input-answer').val('');
         $incorrectMessage.fadeOut(1000);
@@ -650,8 +602,14 @@ const randNovelsQGenerator = () => {
         let $randQuestion = (novelsAndComicsQuestions[$random].Question);
         $randQuestionDisplay = $('<p>').text($randQuestion);
         $('#display-question').append($randQuestionDisplay);
-    }
-}
+        } else {
+        checkArraysNovels();
+        }
+};
+
+const winPageGenerator = () => {
+    $('.game-end').css('display', 'block');
+} 
 
 // ================================================================ //
 
@@ -665,9 +623,9 @@ $('#why-im-here').on('click', addRules);
 $('#why-im-here').on('click', playTheme);
 
 
-//////////////////////////////
+//==================================================================================
 // Event Listeners
-//////////////////////////////
+//==================================================================================
 
 
 //////////////////////////////
@@ -691,11 +649,6 @@ $('#play-game').on('click', addEasyAnswerBox);
 
 // Plays Leap Effect to start the game
 $('#play-game').on('click', playLeapEffect); 
-
-// $('#play-game').on('click', runTimer);
-
-// // Adds Timer to the DOM
-// $('#play-game').on('click', addTimer);
 
 // Adds handlink effect to button click
 $('#easy-button').on('click', handlinkEffect);
@@ -800,17 +753,19 @@ $('#novels-and-comics-button').on('click', randNovelsQGenerator);
 // Adds handlink effect to button click
 $('#novels-and-comics-input-button').on('click', handlinkEffect);
 
-///////////////////////////////
-// After each successful round
-///////////////////////////////
+///////////////////////////
+// After loss of game
+//////////////////////////
+
 
 
 
 //////////////////////
-// After end of game
+// After win of game
 //////////////////////
 
-// // Begins game over after player has lost
-// $('#play-again').on('click', restartGame);
+// Final win page
 
+$('#end-game-win').on('click', winPageGenerator);
+$('#end-game-win').on ('click', endTheme);
 });
